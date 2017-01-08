@@ -1,0 +1,6 @@
+# Ignore ALL files
+**/**
+
+# ... but .gitignore and the sample script
+!.gitignore
+!sample.txt
