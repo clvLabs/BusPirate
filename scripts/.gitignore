@@ -1,6 +1,9 @@
 # Ignore ALL files
 **/**
 
-# ... but .gitignore and the sample script
+# ... but .gitignore and the sample scripts
 !.gitignore
 !sample.txt
+!rtc.txt
+!lcd.txt
+!reset.txt
