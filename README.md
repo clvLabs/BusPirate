@@ -1,4 +1,4 @@
-#BusPirate#
+# BusPirate
 
 A simple scripting tool for Bus Pirate written in Python.
 
@@ -10,14 +10,14 @@ Can be used as an automation tool when you need to do repetitive tasks with your
 
 It uses the [basic text mode](http://dangerousprototypes.com/docs/Bus_Pirate_menu_options_guide) used for terminal access, **not** the [bitbang protocol](http://dangerousprototypes.com/docs/Bitbang). This makes the tool not suitable for timing-strict applications, for those kind of scripts you will have to find yourself a *bitbanging library* ([see here](http://dangerousprototypes.com/docs/Bus_Pirate_Scripting_in_Python))
 
-##How to install it##
+## How to install it
 
 * Make sure you have [python 3](https://www.python.org/downloads/) installed
 * Clone this repo (or download and extract the .zip file)
 
-##How to use it##
+## How to use it
 
-###Quick tryout###
+### Quick tryout
 
 * Windows: `python3 buspirate.py -c [COM_PORT]`
 * Linux: `./buspirate.py -c [COM_PORT]`
@@ -30,7 +30,7 @@ Examples:
 
 This will connect to your bus pirate in `[COM PORT]` and run the sample script provided with the project (the one in the screenshot).
 
-###Normal usage###
+### Normal usage
 
 Once you have set your default COM port and script (see *Configuration* section), you can use the program as follows:
 
@@ -44,7 +44,7 @@ If you want to run a different script:
 * Windows: `python3 buspirate.py scripts/some-script.txt`
 * Linux: `./buspirate.py scripts/some-script.txt`
 
-###Syntax###
+### Syntax
 
 ```
 usage: buspirate.py [-h] [-c COMPORT] [scriptFileName]
@@ -58,7 +58,7 @@ optional arguments:
                         set COM port (default: COM39)
 ```
 
-###Configuration###
+### Configuration
 
 Open `config.py` with your favorite text editor to change default settings.
 
@@ -70,11 +70,11 @@ The settings you might want to change are:
 * `RESET_AT_END`: if `True` the board is always reset after processing a script
 * `SCRIPT_BLANK_LINE_DELAY`: milliseconds to *sleep* when a blank line is found
 
-##Scripts##
+## Scripts
 
 Some sample scripts are provided, but the key to make this program useful is to create your own scripts. You can use the `scripts/` folder to store them.
 
-###sample.txt###
+### sample.txt
 
 This is the default script configured to be executed if none is specified in the command line.
 
@@ -93,7 +93,7 @@ d       <<< read voltage probe
 m1      <<< set HiZ mode
 ```
 
-###reset.txt###
+### reset.txt
 
 This script resets your board.
 
@@ -101,7 +101,7 @@ It is an empty file, so it relies in your configuration having `RESET_AT_STARTUP
 
 If you want to have both of them set to `False` in your configuration, edit `reset.txt` script and add a '#' character, which is the Bus Pirate *reset* command.
 
-###lcd.txt###
+### lcd.txt
 
 This scripts does a simple test on a 2-line [HD44780 compatible LCD screen](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf) (**PDF warning**) using a [Bus Pirate LCD adapter](http://dangerousprototypes.com/docs/Bus_Pirate_v3_LCD_adapter).
 
@@ -118,7 +118,7 @@ W                     <<< start power supplies
 
 **NOTE**: This script does **not** reset the board to *HiZ* mode at the end to keep the display ON with the message. To stop the LCD screen you can use the `reset` script.
 
-###rtc.txt###
+### rtc.txt
 
 This scripts reads the date and time from a [DS1307 RTC](https://datasheets.maximintegrated.com/en/ds/DS1307.pdf) (**PDF warning**) via I2C.
 
