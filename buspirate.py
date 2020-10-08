@@ -153,6 +153,7 @@ def main():
 
     log.debug('--- Closing serial port')
     gSerial.close()
+    log.debug(f"--- Finished in {time.time() - programStartTime:.2f} seconds")
 
 
 if __name__ == '__main__':
