@@ -1,10 +1,10 @@
-m4
-4
-W
-v
-d
-
-w
-v
-d
-m1
+m4      // set I2C mode
+4       // set I2C speed (400KHz)
+W       // start power supplies
+v       // read pin states
+d       // read voltage probe
+        // delay
+w       // stop power supplies
+v       // read pin states
+d       // read voltage probe
+m1      // set HiZ mode

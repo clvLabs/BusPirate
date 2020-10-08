@@ -74,6 +74,8 @@ The settings you might want to change are:
 
 Some sample scripts are provided, but the key to make this program useful is to create your own scripts. You can use the `scripts/` folder to store them.
 
+Comments can be added using `//` and will be displayed on program output.
+
 ### sample.txt
 
 This is the default script configured to be executed if none is specified in the command line.
@@ -81,16 +83,16 @@ This is the default script configured to be executed if none is specified in the
 This script does not need anything connected to your Bus Pirate.
 
 ```
-m4      <<< set I2C mode
-4       <<< set I2C speed (400KHz)
-W       <<< start power supplies
-v       <<< read pin states
-d       <<< read voltage probe
-        <<< delay
-w       <<< stop power supplies
-v       <<< read pin states
-d       <<< read voltage probe
-m1      <<< set HiZ mode
+m4      // set I2C mode
+4       // set I2C speed (400KHz)
+W       // start power supplies
+v       // read pin states
+d       // read voltage probe
+        // delay
+w       // stop power supplies
+v       // read pin states
+d       // read voltage probe
+m1      // set HiZ mode
 ```
 
 ### reset.txt

@@ -15,6 +15,7 @@ import serial
 from src.utils import *
 from config import *
 
+COMMENT_SYMBOL = "//"
 BP_READY_SYMBOL = ">"
 BP_BASICMODE_STR = "(BASIC)"
 
@@ -90,12 +91,19 @@ def sendScript(file):
     showMsg('Sending script file ({0}) - {1} lines'.format(file, numLines))
 
     for line in lines:
-        if line == '':
-            delay(SCRIPT_BLANK_LINE_DELAY)
-        elif line == '#':
+        line = line.strip()
+        if line == '#':
             resetBoard()    # Correctly handle reset timeout
         else:
-            send(line)
+            parts = line.split(COMMENT_SYMBOL)
+            command = parts.pop(0).strip()
+            comments = COMMENT_SYMBOL.join(parts)
+            if comments:
+                showCommentMsg(comments)
+            if command == '':
+                delay(SCRIPT_BLANK_LINE_DELAY)
+            else:
+                send(command)
 
 def main():
     showTitle('Bus Pirate scripting tool', line='*', color='blue+')

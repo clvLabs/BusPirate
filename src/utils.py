@@ -80,6 +80,10 @@ def showSentMsg(msg):
 def showErrorMsg(msg):
     print(colorStr('[ERROR] ' + msg, 'red+'))
 
+# Show Comment message
+def showCommentMsg(msg):
+    print(colorStr('///' + msg, 'green'))
+
 # Sleep in millis
 def delay(millis):
     # showMsg('Waiting ({0})'.format(millis))
