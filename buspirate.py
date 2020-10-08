@@ -63,7 +63,7 @@ def waitresponse():
     lastRecTime = 0
     response = []
 
-    while( (time.time() - startTime) < (SERIAL_RESPONSE_TIMEOUT/1000) ):
+    while( True ):
         line = gSerial.readline()
         if(line):
             line = line.decode()
@@ -74,11 +74,6 @@ def waitresponse():
             # Check if command was completed (response will be something like "HiZ>")
             if line[-1] == BP_READY_SYMBOL:
                 break
-        else:
-            if lastRecTime:
-                diff = (time.time() - lastRecTime) * 1000
-                if diff > SERIAL_RESPONSE_END_SILENCE:
-                    break
     else:
         log.error('!!! Timeout waiting for response')
 
