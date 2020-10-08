@@ -16,6 +16,7 @@ from src.utils import *
 from config import *
 
 BP_READY_SYMBOL = ">"
+BP_BASICMODE_STR = "(BASIC)"
 
 # Serial port
 gSerial = serial.Serial()
@@ -36,24 +37,32 @@ def connect(port):
     except:
         pass
 
-    if(gSerial.isOpen()):
-        showOKMsg('Serial port open')
-    else:
+    if not gSerial.isOpen():
         showErrorMsg('ERROR opening serial port, exiting program')
         quit()
+
+    showOKMsg('Serial port open')
+    resp = send("")
+    if resp and BP_BASICMODE_STR in resp[-1]:
+        showMsg('Exiting BASIC mode')
+        send("exit")
 
 def send(command):
     showSentMsg(command)
     serialCommand = command + '\n'
     gSerial.write(serialCommand.encode())
+    return waitresponse()
 
+def waitresponse():
     startTime = time.time()
     lastRecTime = 0
+    response = []
 
     while( (time.time() - startTime) < (SERIAL_RESPONSE_TIMEOUT/1000) ):
         line = gSerial.readline()
         if(line):
             line = line.decode()
+            response.append(line)
             lastRecTime = time.time()
             showReceivedMsg(line)
             # Check if command was completed (response will be something like "HiZ>")
@@ -66,6 +75,8 @@ def send(command):
                     break
     else:
         showErrorMsg('Timeout waiting for response')
+
+    return response
 
 def resetBoard():
     showMsg('Resetting board')
