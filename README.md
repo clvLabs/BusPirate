@@ -6,7 +6,95 @@ It allows you to save your *scripts* in text files, using the same syntax you ar
 
 Can be used as an automation tool when you need to do repetitive tasks with your Bus Pirate, or simply to keep a list of useful scripts (e.g. basic testing of LCD screens)
 
-![screenshot](doc/img/screenshot.png)
+```
+$ ./buspirate.py
+--- Bus Pirate scripting tool
+--- Script file: scripts/sample.txt
+--- COM port: /dev/ttyUSB0
+--- Log mode: False
+--- Opening serial port
+--- Serial port open
+>>>
+<<<
+<<< HiZ>
+--- Resetting board
+>>> #
+Reading from stdin via: /tmp/code-stdin-fhf.txt
+<<< #
+<<< RESET
+<<<
+<<< Bus Pirate v3b
+<<< Firmware v5.10 (r559)  Bootloader v4.4
+<<< DEVID:0x0447 REVID:0x3046 (24FJ64GA002 B8)
+<<< http://dangerousprototypes.com
+<<< HiZ>
+--- Sending script file (scripts/sample.txt) - 10 lines
+///  set I2C mode
+>>> m4
+<<< m4
+<<< Set speed:
+<<<  1. ~5KHz
+<<<  2. ~50KHz
+<<<  3. ~100KHz
+<<<  4. ~400KHz
+<<<
+<<< (1)>
+///  set I2C speed (400KHz)
+>>> 4
+<<< 4
+<<< Ready
+<<< I2C>
+///  start power supplies
+>>> W
+<<< W
+<<< Power supplies ON
+<<< I2C>
+///  read pin states
+>>> v
+<<< v
+<<< Pinstates:
+<<< 1.(BR)	2.(RD)	3.(OR)	4.(YW)	5.(GN)	6.(BL)	7.(PU)	8.(GR)	9.(WT)	0.(Blk)
+<<< GND	3.3V	5.0V	ADC	VPU	AUX	SCL	SDA	-	-
+<<< P	P	P	I	I	I	I	I	I	I
+<<< GND	3.24V	4.96V	0.00V	0.00V	L	L	L	L	L
+<<< I2C>
+///  read voltage probe
+>>> d
+<<< d
+<<< VOLTAGE PROBE: 0.00V
+<<< I2C>
+///  delay
+///  stop power supplies
+>>> w
+<<< w
+<<< Power supplies OFF
+<<< I2C>
+///  read pin states
+>>> v
+<<< v
+<<< Pinstates:
+<<< 1.(BR)	2.(RD)	3.(OR)	4.(YW)	5.(GN)	6.(BL)	7.(PU)	8.(GR)	9.(WT)	0.(Blk)
+<<< GND	3.3V	5.0V	ADC	VPU	AUX	SCL	SDA	-	-
+<<< P	P	P	I	I	I	I	I	I	I
+<<< GND	0.00V	0.02V	0.00V	0.00V	L	L	L	L	L
+<<< I2C>
+///  read voltage probe
+>>> d
+<<< d
+<<< VOLTAGE PROBE: 0.00V
+<<< I2C>
+///  set HiZ mode
+>>> m1
+<<< m1
+<<< Ready
+<<< HiZ>
+--- Closing serial port
+```
+
+* Lines starting with `---` are informational messages
+* Lines starting with `///` are comments
+* Lines starting with `>>>` are sent messages
+* Lines starting with `<<<` are received messages
 
 It uses the [basic text mode](http://dangerousprototypes.com/docs/Bus_Pirate_menu_options_guide) used for terminal access, **not** the [bitbang protocol](http://dangerousprototypes.com/docs/Bitbang). This makes the tool not suitable for timing-strict applications, for those kind of scripts you will have to find yourself a *bitbanging library* ([see here](http://dangerousprototypes.com/docs/Bus_Pirate_Scripting_in_Python))
 
@@ -16,6 +104,21 @@ It uses the [basic text mode](http://dangerousprototypes.com/docs/Bus_Pirate_men
 * Clone this repo (or download and extract the .zip file)
 
 ## How to use it
+
+### Syntax
+
+```
+usage: buspirate.py [-h] [-c COMPORT] [-l] [scriptFileName]
+
+positional arguments:
+  scriptFileName        set script file to use (default: scripts/sample.txt)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c COMPORT, --comPort COMPORT
+                        set COM port (default: COM39)
+  -l, --logmode         log mode
+```
 
 ### Quick tryout
 
@@ -44,18 +147,26 @@ If you want to run a different script:
 * Windows: `python3 buspirate.py scripts/some-script.txt`
 * Linux: `./buspirate.py scripts/some-script.txt`
 
-### Syntax
+### Logging mode
+
+When `-l` or `--logmode` is specified:
+* A timestamp is added to each line
+* Only transmitted errors and log messages are displayed
 
 ```
-usage: buspirate.py [-h] [-c COMPORT] [scriptFileName]
-
-positional arguments:
-  scriptFileName        set script file to use (default: scripts/sample.txt)
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -c COMPORT, --comPort COMPORT
-                        set COM port (default: COM39)
+$ ./buspirate.py -l
+2020/10/09 00:40:09.211 >>>
+2020/10/09 00:40:09.221 <<<
+2020/10/09 00:40:09.321 <<< HiZ>
+2020/10/09 00:40:09.322 >>> #
+2020/10/09 00:40:09.351 <<< #
+2020/10/09 00:40:09.351 <<< RESET
+2020/10/09 00:40:09.351 <<<
+2020/10/09 00:40:09.351 <<< Bus Pirate v3b
+2020/10/09 00:40:09.352 <<< Firmware v5.10 (r559)  Bootloader v4.4
+2020/10/09 00:40:09.352 <<< DEVID:0x0447 REVID:0x3046 (24FJ64GA002 B8)
+2020/10/09 00:40:09.353 <<< http://dangerousprototypes.com
+...
 ```
 
 ### Configuration
