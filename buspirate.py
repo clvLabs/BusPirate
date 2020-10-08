@@ -15,6 +15,8 @@ import serial
 from src.utils import *
 from config import *
 
+BP_READY_SYMBOL = ">"
+
 # Serial port
 gSerial = serial.Serial()
 
@@ -54,6 +56,9 @@ def send(command):
             line = line.decode()
             lastRecTime = time.time()
             showReceivedMsg(line)
+            # Check if command was completed (response will be something like "HiZ>")
+            if line[-1] == BP_READY_SYMBOL:
+                break
         else:
             if lastRecTime:
                 diff = (time.time() - lastRecTime) * 1000
