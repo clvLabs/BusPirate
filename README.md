@@ -108,14 +108,14 @@ If you want to have both of them set to `False` in your configuration, edit `res
 This scripts does a simple test on a 2-line [HD44780 compatible LCD screen](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf) (**PDF warning**) using a [Bus Pirate LCD adapter](http://dangerousprototypes.com/docs/Bus_Pirate_v3_LCD_adapter).
 
 ```
-m8                    <<< set LCD mode
-W                     <<< start power supplies
-(1)                   <<< reset LCD
-(2)                   <<< init LCD
-2                     <<< set number of lines (2)
-(3)                   <<< clear LCD
-(4) 0  "Bus Pirate"   <<< set cursor to 0 and write text
-(4) 40 "LCD test"     <<< set cursor to 40 (line 2) and write text
+m8                    // set LCD mode
+W                     // start power supplies
+(1)                   // reset LCD
+(2)                   // init LCD
+2                     // set number of lines (2)
+(3)                   // clear LCD
+(4) 0  "Bus Pirate"   // set cursor to 0 and write text
+(4) 40 "LCD test"     // set cursor to 40 (line 2) and write text
 ```
 
 **NOTE**: This script does **not** reset the board to *HiZ* mode at the end to keep the display ON with the message. To stop the LCD screen you can use the `reset` script.
@@ -125,11 +125,11 @@ W                     <<< start power supplies
 This scripts reads the date and time from a [DS1307 RTC](https://datasheets.maximintegrated.com/en/ds/DS1307.pdf) (**PDF warning**) via I2C.
 
 ```
-m4                             <<< set I2C mode
-3                              <<< set I2C speed (100KHz)
-W                              <<< start power supplies
-[ 0xd0 0x00 [ 0xd1 rrrrrrr ]   <<< read 7 bytes from addr 0xd1 reg 0x00
-w                              <<< stop power supplies
-m1                             <<< set HiZ mode
+m4                             // set I2C mode
+3                              // set I2C speed (100KHz)
+W                              // start power supplies
+[ 0xd0 0x00 [ 0xd1 rrrrrrr ]   // read 7 bytes from addr 0xd1 reg 0x00
+w                              // stop power supplies
+m1                             // set HiZ mode
 ```
 

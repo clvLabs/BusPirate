@@ -1,8 +1,8 @@
-m8
-W
-(1)
-(2)
-2
-(3)
-(4) 0  "Bus Pirate"
-(4) 40 "LCD test"
+m8                    // set LCD mode
+W                     // start power supplies
+(1)                   // reset LCD
+(2)                   // init LCD
+2                     // set number of lines (2)
+(3)                   // clear LCD
+(4) 0  "Bus Pirate"   // set cursor to 0 and write text
+(4) 40 "LCD test"     // set cursor to 40 (line 2) and write text

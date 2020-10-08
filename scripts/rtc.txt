@@ -1,6 +1,6 @@
-m4
-3
-W
-[ 0xd0 0x00 [ 0xd1 rrrrrrr ]
-w
-m1
+m4                             // set I2C mode
+3                              // set I2C speed (100KHz)
+W                              // start power supplies
+[ 0xd0 0x00 [ 0xd1 rrrrrrr ]   // read 7 bytes from addr 0xd1 reg 0x00
+w                              // stop power supplies
+m1                             // set HiZ mode
