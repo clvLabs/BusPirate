@@ -19,7 +19,6 @@ $ ./buspirate.py
 <<< HiZ>
 --- Resetting board
 >>> #
-Reading from stdin via: /tmp/code-stdin-fhf.txt
 <<< #
 <<< RESET
 <<<
