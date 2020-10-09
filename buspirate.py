@@ -16,9 +16,13 @@ import logging
 from src.utils import *
 from config import *
 
-COMMENT_SYMBOL = "//"
+BP_SERIAL_SPEED = 115200
+BP_SERIAL_TIMEOUT = 0.1
+BP_RESET_DELAY = 500
 BP_READY_SYMBOL = ">"
 BP_BASICMODE_STR = "(BASIC)"
+
+COMMENT_SYMBOL = "//"
 
 log = None
 args = None
@@ -30,8 +34,8 @@ def connect(port):
     global gSerial
 
     gSerial.port = port
-    gSerial.baudrate = SERIAL_SPEED
-    gSerial.timeout = SERIAL_TIMEOUT
+    gSerial.baudrate = BP_SERIAL_SPEED
+    gSerial.timeout = BP_SERIAL_TIMEOUT
 
     if(gSerial.isOpen()):
         gSerial.close()
@@ -82,7 +86,7 @@ def waitresponse():
 def resetBoard():
     log.debug('--- Resetting board')
     send('#')
-    delay(RESET_DELAY)
+    delay(BP_RESET_DELAY)
 
 def sendScript(file):
     data = open(file, encoding='utf8')
@@ -111,7 +115,7 @@ def main():
     programStartTime = time.time()
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('scriptFileName', nargs='?', help='set script file to use (default: {:s})'.format(SCRIPT_FILE), default=SCRIPT_FILE)
+    parser.add_argument('scriptFileName', help='set script file to use')
     parser.add_argument('-c', '--comPort', help='set COM port (default: {:s})'.format(SERIAL_PORT), default=SERIAL_PORT)
     parser.add_argument('-l', '--logmode', action="store_true", help='log mode', )
 

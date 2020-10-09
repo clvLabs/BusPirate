@@ -7,7 +7,7 @@ It allows you to save your *scripts* in text files, using the same syntax you ar
 Can be used as an automation tool when you need to do repetitive tasks with your Bus Pirate, or simply to keep a list of useful scripts (e.g. basic testing of LCD screens)
 
 ```
-$ ./buspirate.py
+$ ./buspirate.py scripts/sample.txt
 --- Bus Pirate scripting tool
 --- Script file: scripts/sample.txt
 --- COM port: /dev/ttyUSB0
@@ -101,59 +101,54 @@ It uses the [basic text mode](http://dangerousprototypes.com/docs/Bus_Pirate_men
 
 * Make sure you have [python 3](https://www.python.org/downloads/) installed
 * Clone this repo (or download and extract the .zip file)
+* If running on Linux, make sure you `chmod -x buspirate.py`
+* Open `config.py` with your favorite text editor to change default settings.
+
+### config.py
+
+```
+SERIAL_PORT = '/dev/ttyUSB0'
+RESET_AT_STARTUP = True
+RESET_AT_END = False
+SCRIPT_BLANK_LINE_DELAY = 250
+```
+
+* `SERIAL_PORT`: default serial port name (Use `COMx` on Windows)
+* `RESET_AT_STARTUP`: if `True` the board is always reset before processing a script
+* `RESET_AT_END`: if `True` the board is always reset after processing a script
+* `SCRIPT_BLANK_LINE_DELAY`: milliseconds to *sleep* when a blank line is found
 
 ## How to use it
 
 ### Syntax
 
 ```
-usage: buspirate.py [-h] [-c COMPORT] [-l] [scriptFileName]
+usage: buspirate.py [-h] [-c COMPORT] [-l] scriptFileName
 
 positional arguments:
-  scriptFileName        set script file to use (default: scripts/sample.txt)
+  scriptFileName        set script file to use
 
 optional arguments:
   -h, --help            show this help message and exit
   -c COMPORT, --comPort COMPORT
-                        set COM port (default: COM39)
+                        set COM port (default: /dev/ttyUSB0)
   -l, --logmode         log mode
 ```
 
 ### Quick tryout
+`./buspirate.py scripts/sample.txt`
 
-* Windows: `python3 buspirate.py -c [COM_PORT]`
-* Linux: `./buspirate.py -c [COM_PORT]`
-	* (make sure you `chmod -x buspirate.py`)
+This will connect to the bus pirate in `[SERIAL_PORT]` and run the sample script provided with the project (the one in the screenshot).
 
-Examples:
-
-* Windows: `python3 buspirate.py -c COM10`
-* Linux: `./buspirate.py -c /dev/ttyACM0` (not tested yet)
-
-This will connect to your bus pirate in `[COM PORT]` and run the sample script provided with the project (the one in the screenshot).
-
-### Normal usage
-
-Once you have set your default COM port and script (see *Configuration* section), you can use the program as follows:
-
-If you want to run the default script:
-
-* Windows: `python3 buspirate.py`
-* Linux: `./buspirate.py`
-
-If you want to run a different script:
-
-* Windows: `python3 buspirate.py scripts/some-script.txt`
-* Linux: `./buspirate.py scripts/some-script.txt`
 
 ### Logging mode
+`./buspirate.py scripts/sample.txt -l`
 
 When `-l` or `--logmode` is specified:
 * A timestamp is added to each line
 * Only transmitted errors and log messages are displayed
 
 ```
-$ ./buspirate.py -l
 2020/10/09 00:40:09.211 >>>
 2020/10/09 00:40:09.221 <<<
 2020/10/09 00:40:09.321 <<< HiZ>
@@ -168,19 +163,7 @@ $ ./buspirate.py -l
 ...
 ```
 
-### Configuration
-
-Open `config.py` with your favorite text editor to change default settings.
-
-The settings you might want to change are:
-
-* `SCRIPT_FILE`: default script to be run if none is specified in the command line
-* `SERIAL_PORT`: default serial port name
-* `RESET_AT_STARTUP`: if `True` the board is always reset before processing a script
-* `RESET_AT_END`: if `True` the board is always reset after processing a script
-* `SCRIPT_BLANK_LINE_DELAY`: milliseconds to *sleep* when a blank line is found
-
-## Scripts
+## Sample scripts
 
 Some sample scripts are provided, but the key to make this program useful is to create your own scripts. You can use the `scripts/` folder to store them.
 
