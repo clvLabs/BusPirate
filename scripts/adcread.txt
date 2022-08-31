@@ -1,0 +1,13 @@
+s                         // Enter the script engine
+new                       // Create a new BP BASIC script:
+10 AUX 1                  // - Set AUX pin HIGH
+20 FOR I=1 TO 5           // - Repeat 5 times:
+30 LET A=ADC              //     - Get value from ADC pin into A
+40 PRINT I;": ";A         //     - Print iteration number and ADC value
+50 DELAY 20               //     - Wait 20ms
+60 NEXT I                 //     - Increment iteration counter
+70 AUX 0                  // - Set AUX pin LOW
+80 PRINT "WORK DONE"      // - Print finished message
+list                      // Show the script listing
+run                       // Run the script
+exit                      // Exit the script engine

@@ -3,7 +3,9 @@
 
 # ... but .gitignore and the sample scripts
 !.gitignore
+!README.md
 !sample.txt
 !rtc.txt
 !lcd.txt
 !reset.txt
+!adcread.txt
